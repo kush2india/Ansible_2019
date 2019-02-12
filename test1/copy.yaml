@@ -1,0 +1,5 @@
+- hosts: node2
+  tasks: 
+    - copy: 
+       src: /home/ec2-user/a1
+       dest: /home/ec2-user/a2
