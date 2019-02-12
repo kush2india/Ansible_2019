@@ -1,5 +1,6 @@
 - hosts: node2
+  gather_facts: false
   tasks: 
     - copy: 
        src: /home/ec2-user/a1
-       dest: /home/ec2-user/a2
+       dest: /home/ec2-user/a3

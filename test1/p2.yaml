@@ -1,0 +1,8 @@
+- name: this is my first palybook  
+  hosts: node2
+  gather_facts: false
+  tasks: 
+    - name: copy a1 file to a3
+      copy: 
+       src: /home/ec2-user/a1
+       dest: /home/ec2-user/a3

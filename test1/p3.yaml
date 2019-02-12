@@ -1,0 +1,11 @@
+- name: this is my first palybook  
+  hosts: node2
+  gather_facts: false
+  user: ec2-user
+  become: true
+  become_method: sudo 
+  tasks: 
+    - name: copy a1 file to a3
+      copy: 
+       src: /home/ec2-user/a1
+       dest: /a3
