@@ -1,0 +1,22 @@
+- name: this is my first palybook  
+  hosts: node1
+  gather_facts: false
+  user: ec2-user
+  become: true
+  become_method: sudo 
+  tasks: 
+    - name: exaple of single line format
+      file: path=/home/ec2-user/s2 state=absent mode=0777 owner=root group=root
+    - name: example of mutiple line format
+      file: path=/home/ec2-user/s3
+            state=absent
+            mode=0777
+            owner=root
+            group=root
+
+    - name: example of dictonary format
+      file: 
+         path: /home/ec2-user/s5
+         state: absent
+         group: root
+         owner: root

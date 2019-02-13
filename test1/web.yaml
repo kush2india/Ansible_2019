@@ -1,0 +1,50 @@
+- name: exaple of web server deplopment
+  hosts: node2 
+  tasks: 
+    - name: insalled httpd
+      yum: 
+        name: httpd
+        state: latest
+
+    - name: copy web.conf  vir file
+      copy: 
+         src: conf/web.conf
+         dest: /etc/httpd/conf.d/web.conf
+         owner: apache
+         group: apache
+   
+
+    - name: copy web page
+      copy: 
+         src: code/
+         dest: /var/www/html/
+
+    - name: chnage default to 8080
+      lineinfile: 
+         path: /etc/httpd/conf/httpd.conf
+         regexp: '^Listen '
+         insertafter: '^#Listen '
+         line: 'Listen 8080'
+     
+    - name: install firewalld
+      yum: 
+          name: firewalld
+          state: installed
+
+    - name : start firewalld
+      service: 
+           name: firewalld
+           state: started
+     
+    - name: add port in firewall 8080
+      firewalld:
+        port: 8080/tcp
+        permanent: yes
+        state: enabled
+        immediate: true
+
+    - name: start httpd and enable
+      service: 
+         name: httpd
+         state: started
+         enabled: true 

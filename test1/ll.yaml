@@ -5,6 +5,11 @@
   become: true
   become_method: sudo 
   tasks: 
+    -name: install httpd package
+     yum: 
+       name: httpd
+       state: latest
+
     - name: copy a1 file to a3
       copy: 
        src: /home/ec2-user/a1
