@@ -1,0 +1,9 @@
+- name: example of playbook level variable
+  hosts: all
+  tasks:
+    - name: create web root
+      file:
+         name: "{{ web_root }}"
+         state:  directory
+    - debug:
+           msg: "this is {{ web_root }} for deplopment"

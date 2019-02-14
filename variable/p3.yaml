@@ -1,0 +1,16 @@
+- name: example of playbook level variable
+  hosts: node1 
+  tasks:
+    - include_vars: v.yaml
+    - name: create web root
+      file:
+         name: "{{ web_root }}"
+         state:  directory
+    - debug:
+           msg: "this is {{ web_root }} for deplopment"
+
+    - name: copy  "{{ app }} " into "{{ web_root }}"
+      copy:
+         src: "{{ app }}"
+         dest: "{{ web_root }}"
+ 

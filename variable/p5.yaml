@@ -1,0 +1,7 @@
+- name: example of playbook level variable
+  hosts: all
+  tasks:
+    - name: to delete user
+      user:
+         name: "{{ xyz }}"
+         state: absent
