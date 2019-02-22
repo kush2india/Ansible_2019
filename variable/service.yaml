@@ -1,0 +1,9 @@
+- hosts: all
+  tasks: 
+     - name: first check sevice status
+       command: systemctl is-active postfix
+       register: xyz
+       ignore_errors: yes
+  
+     - debug: 
+         var: xyz

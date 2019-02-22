@@ -1,0 +1,2 @@
+- name: Bootstrap a host without python2 installed
+    raw:  "df -h"

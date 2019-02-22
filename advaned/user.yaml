@@ -1,0 +1,42 @@
+- hosts: all
+ 
+  gather_facts: False
+  become: True
+
+vars:
+    user: user1
+    passw: Password1$
+
+tasks:
+
+- name: Check if user exists
+      register: user1_exists
+      raw: getent passwd {{user}}
+      ignore_errors: true
+
+- name: delete user1 user
+      raw: userdel {{user}} -r
+      when: user1_exists|success
+
+- name: add user user1  
+      raw: useradd -m {{user}}
+
+- name: add user password
+      raw: usermod --password $(echo {{passw}} | openssl passwd -1 -stdin) {{user}}
+- name: make dir .ssh in crvp home
+      raw: mkdir ../{{user}}/.ssh
+
+- name: change ownership to crvp user
+      raw: chown {{user}}:{{user}} ../{{user}}/.ssh
+
+- name: give required permission to .ssh
+      raw: chmod 777 ../{{user}}/.ssh/
+
+- name: create authorized_keys  
+      raw: touch ../{{user}}/.ssh/authorized_keys
+
+- name: change ownership to crvp user
+      raw: chown {{user}}:{{user}} ../{{user}}/.ssh/authorized_keys
+
+- name: give required permission to authorized_keys
+

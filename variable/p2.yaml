@@ -1,17 +1,19 @@
-- name: example of playbook level variable
+- name: example of register variable
   hosts: node1 
-  vars_files:
-    - v.yaml
-  tasks:
-    - name: create web root
-      file:
-         name: "{{ web_root }}"
-         state:  directory
-    - debug:
-           msg: "this is {{ web_root }} for deplopment"
+  tasks: 
+     - stat: 
+         path: /var/www/html/index.html
+       register: xyz
 
-    - name: copy  "{{ app }} " into "{{ web_root }}"
-      copy:
-         src: "{{ app }}"
-         dest: "{{ web_root }}"
- 
+     - name: create file if does not exits
+       copy: 
+          content: "hello from {{ ansible_hostname }}"
+          dest: /var/www/html/index.html 
+       when: xyz.stat.exists == false
+
+     - name: append diffrent content if file exists
+       lineinfile:
+                line: "Happy New year"
+                dest: /var/www/html/index.html
+       when: xyz.stat.exists == true
+      

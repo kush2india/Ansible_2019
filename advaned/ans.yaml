@@ -1,0 +1,7 @@
+- hosts: edna 
+  become: yes
+  gather_facts: no
+  pre_tasks:
+  - name: 'install ansiable'
+    raw: 'sudo yum install httpd -y'
+

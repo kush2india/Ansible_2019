@@ -1,0 +1,19 @@
+- hosts: all
+  tasks: 
+     - name: first check sevice status
+       command: systemctl is-active postfix
+       register: xyz
+       ignore_errors: yes
+    
+     - name: start if service not running
+       service: 
+            name : postfix
+            state: started
+            enabled: true
+       when: xyz.rc != 0
+     
+     - name : restart if sevice is running
+       service: 
+            name: postfix
+            state: restarted
+       when: xyz.rc == 0

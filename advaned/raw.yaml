@@ -1,0 +1,6 @@
+- hosts: edna 
+  become: yes
+  gather_facts: no
+  pre_tasks:
+  - name: 'run it the destage command on edna'
+    raw: 'yum install httpd -y'

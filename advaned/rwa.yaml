@@ -1,0 +1,2 @@
+- name: give required permission to .ssh for user
+   raw: chmod 0700 user.yaml
